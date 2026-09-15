@@ -23,21 +23,30 @@ The core dependencies are:
 - `papirus-icon-theme`
 
 ## Installation
-Clone the repository and run the install script:
+There is no automated install script. You can manually copy the configuration files you want into your own `~/.config/` directory.
 
 ```bash
 git clone https://github.com/yourusername/fedora-sway-dotfiles.git
 cd fedora-sway-dotfiles
-./install.sh
+
+# Copy the core configurations
+cp -r config/* ~/.config/
+
+# Copy the custom scripts to your local bin (make sure it's in your $PATH)
+mkdir -p ~/.local/bin
+cp -r bin/* ~/.local/bin/
+
+# Set up the Dunst Pywal symlink manually
+ln -sf ~/.cache/wal/dunstrc ~/.config/dunst/dunstrc
 ```
 
-### What the installer does:
-1. Installs missing required packages via `dnf` (asks for `sudo`).
-2. Installs `pywal16` and `autotiling` via `pip` (user-level).
-3. Backs up any existing configurations in `~/.config/sway`, `waybar`, `rofi`, `foot`, and `wlogout`.
-4. Copies the configurations from this repository into your `~/.config/` directory.
-5. Copies custom binaries to `~/.local/bin/`.
-6. Sets up a default Pywal wallpaper so Sway launches successfully on the first boot.
+### Pywal Bootstrap
+Since everything in this setup is dynamically themed using Pywal16, **Sway will crash on its first boot** if the Pywal cache hasn't been generated yet (because it won't be able to find `~/.cache/wal/colors-sway`).
+
+Before you reload Sway for the first time, you must run Pywal manually to generate the initial theme cache:
+```bash
+wal -q -t -n -i ~/.config/sway/assets/default-wallpaper.jpg
+```
 
 ## Customization
 - **Lock Screen Avatar:** Replace `~/.config/sway/assets/face.jpg` with your own image to customize the lock screen avatar.
@@ -51,10 +60,3 @@ cd fedora-sway-dotfiles
 - `Super + M`: Lock Screen
 - `Super + Del`: Wlogout Menu
 - `Print`: Select region to screenshot (copies to clipboard)
-
-## Uninstallation
-If you wish to revert to your previous setup, run:
-```bash
-./uninstall.sh
-```
-This will restore the backups created during installation. It will *not* uninstall the `dnf` packages.
