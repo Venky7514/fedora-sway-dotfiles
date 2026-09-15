@@ -2,6 +2,9 @@
 
 This is my personal Fedora Sway desktop configuration. It focuses on a clean, dynamic, Pywal-integrated aesthetic while retaining the solid foundation of Fedora's default system integrations.
 
+## Showcase
+https://github.com/user-attachments/assets/0edc76a8-8fcd-4d2e-b8f5-49fcd4c3572b
+
 ## Features
 - **Sway:** Base window manager with modular config (relies on Fedora's native `layered-include`).
 - **Waybar:** Clean, module-based top bar with dynamic Pywal colors and WirePlumber audio integration.
