@@ -1,0 +1,41 @@
+/* Global color definitions */
+@define-color theme_selected_bg_color {color6};
+@define-color theme_selected_fg_color {background};
+
+/* Target Thunar specifically to avoid breaking Waybar */
+.thunar, 
+thunar-window, 
+window.thunar,
+.thunar headerbar, 
+.thunar .titlebar, 
+.thunar menubar, 
+.thunar menu, 
+.thunar .sidebar, 
+.thunar .sidebar row,
+.thunar toolbar,
+.thunar statusbar {{
+    background-color: {color0};
+    color: {foreground};
+}}
+
+.thunar .standard-view, 
+.thunar .standard-view view, 
+.thunar .standard-view iconview, 
+.thunar .standard-view treeview,
+.thunar .standard-view textview,
+.thunar scrolledwindow,
+.thunar viewport {{
+    background-color: {background};
+    color: {foreground};
+}}
+
+/* Selections */
+*:selected, .view:selected, iconview:selected, treeview:selected {{
+    background-color: @theme_selected_bg_color;
+    color: @theme_selected_fg_color;
+}}
+
+/* Colorize all symbolic icons with Accent Color */
+image, image:selected, .sidebar image {{
+    color: {color6};
+}}

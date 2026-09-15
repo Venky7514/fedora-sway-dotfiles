@@ -1,0 +1,8 @@
+* {
+    bg: #{background.strip}E6;
+    bg-alt: #{color0.strip}E6;
+    fg: #{foreground.strip};
+    primary: #{color4.strip};
+    secondary: #{color1.strip};
+    urgent: #{color1.strip};
+}

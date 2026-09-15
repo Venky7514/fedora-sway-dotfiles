@@ -1,0 +1,5 @@
+@define-color bg rgba({background.rgb}, 0.9);
+@define-color bg-hover rgba({color4.rgb}, 1.0);
+@define-color fg {foreground};
+@define-color fg-hover {background};
+@define-color border-col {color4};

@@ -15,7 +15,6 @@ This is my personal Fedora Sway desktop configuration. It focuses on a clean, dy
 This setup is specifically designed for **Fedora Linux** running the **Sway** window manager. It relies on Fedora's specific `sway-systemd` integration and default config structure. It may require manual tweaking to work on Arch, Ubuntu, or other distributions.
 
 ## Prerequisites
-The installer script attempts to install the required dependencies using `dnf` and `pip`.
 The core dependencies are:
 - `sway`, `waybar`, `foot`, `rofi-wayland`, `wlogout`, `swaylock`, `swayidle`, `dunst`
 - `python3-pip`, `ImageMagick`, `wl-clipboard`, `grim`, `slurp`

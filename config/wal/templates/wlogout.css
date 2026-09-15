@@ -1,0 +1,46 @@
+* {{
+    background-image: none;
+    box-shadow: none;
+}}
+
+window {{
+    background-color: rgba({background.rgb}, 0.8);
+}}
+
+button {{
+    border-radius: 20px;
+    border-color: {color6};
+    text-decoration-color: {foreground};
+    color: {foreground};
+    background-color: rgba({color0.rgb}, 0.5);
+    border-style: solid;
+    border-width: 2px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 25%;
+    margin: 15px;
+    transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}}
+
+button:focus, button:active, button:hover {{
+    background-color: {color6};
+    color: {background};
+    outline-style: none;
+    box-shadow: 0 0 20px 2px rgba({color6.rgb}, 0.5);
+}}
+
+/* Normal Icons */
+#lock {{ background-image: image(url("wlogout_icons/lock.png")); }}
+#logout {{ background-image: image(url("wlogout_icons/logout.png")); }}
+#suspend {{ background-image: image(url("wlogout_icons/suspend.png")); }}
+#hibernate {{ background-image: image(url("wlogout_icons/hibernate.png")); }}
+#shutdown {{ background-image: image(url("wlogout_icons/shutdown.png")); }}
+#reboot {{ background-image: image(url("wlogout_icons/reboot.png")); }}
+
+/* Hover Icons */
+#lock:focus, #lock:active, #lock:hover {{ background-image: image(url("wlogout_icons/lock_hover.png")); }}
+#logout:focus, #logout:active, #logout:hover {{ background-image: image(url("wlogout_icons/logout_hover.png")); }}
+#suspend:focus, #suspend:active, #suspend:hover {{ background-image: image(url("wlogout_icons/suspend_hover.png")); }}
+#hibernate:focus, #hibernate:active, #hibernate:hover {{ background-image: image(url("wlogout_icons/hibernate_hover.png")); }}
+#shutdown:focus, #shutdown:active, #shutdown:hover {{ background-image: image(url("wlogout_icons/shutdown_hover.png")); }}
+#reboot:focus, #reboot:active, #reboot:hover {{ background-image: image(url("wlogout_icons/reboot_hover.png")); }}
