@@ -49,7 +49,7 @@ wal -q -t -n -i ~/.config/sway/assets/default-wallpaper.jpg
 
 ## Customization
 - **Lock Screen Avatar:** Replace `~/.config/sway/assets/face.jpg` with your own image to customize the lock screen avatar.
-- **Wallpapers:** Add your images to `~/Wallpapers/`. Press `Super + \` to open the wallpaper selector.
+- **Wallpapers:** Add your images to `~/Wallpapers/`. Press `Super + \` to open the wallpaper selector. You can find my wallpapers in /Wallpapers
 
 ## Keybindings
 - `Super + Space`: Rofi App Launcher
