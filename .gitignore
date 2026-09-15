@@ -1,0 +1,8 @@
+.DS_Store
+*.log
+.env
+.secrets
+# Exclude potential generated or temporary files
+*~
+*.bak
+*.swp

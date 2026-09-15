@@ -1,0 +1,80 @@
+/**
+ * Rofi Wallpaper Selector Theme
+ */
+
+* {
+    /* Define colors based on Pywal or fallbacks */
+    bg-color:       rgba(20, 20, 20, 0.85); /* Dark translucent surface */
+    bg-alt:         rgba(50, 50, 50, 0.5);
+    border-color:   rgba(255, 255, 255, 0.1);
+    accent-color:   rgba(255, 255, 255, 0.8);
+    text-color:     rgba(255, 255, 255, 0.0); /* Hide text by making it transparent */
+    
+    background-color: transparent;
+    margin:  0;
+    padding: 0;
+    spacing: 0;
+}
+
+window {
+    width:            85%;
+    max-width:        1200px;
+    background-color: @bg-color;
+    border:           1px solid;
+    border-color:     @border-color;
+    border-radius:    16px;
+    padding:          30px;
+    location:         center;
+    anchor:           center;
+}
+
+mainbox {
+    children: [ listview ];
+    background-color: transparent;
+    spacing: 20px;
+}
+
+listview {
+    columns:       4;
+    lines:         2;
+    cycle:         true;
+    dynamic:       true;
+    scrollbar:     false;
+    layout:        vertical;
+    spacing:       20px;
+    background-color: transparent;
+    fixed-columns: false;
+}
+
+element {
+    orientation: vertical;
+    border-radius: 12px;
+    background-color: transparent;
+    padding: 10px;
+    border: 2px solid;
+    border-color: transparent;
+
+}
+
+element selected {
+    background-color: @bg-alt;
+    border-color:     @accent-color;
+}
+
+element-icon {
+    size: 240px;
+    border-radius: 8px;
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    background-color: transparent;
+}
+
+/* We hide the text to keep it image-focused, as requested */
+element-text {
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    text-color: transparent;
+    font: "sans-serif 1px"; /* Make it tiny so it takes no space */
+    margin: 0;
+    padding: 0;
+}

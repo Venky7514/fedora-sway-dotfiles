@@ -1,0 +1,115 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 44,
+    "margin-top": 10,
+    "margin-left": 14,
+    "margin-right": 14,
+    "spacing": 0,
+    "reload_style_on_change": true,
+
+    "modules-left": [
+        "clock",
+        "cpu",
+        "memory",
+        "disk"
+    ],
+    "modules-center": [
+        "power-profiles-daemon",
+        "sway/workspaces"
+    ],
+    "modules-right": [
+        "wireplumber",
+        "custom/nightlight",
+        "custom/themetoggle",
+        "network",
+        "bluetooth",
+        "battery"
+    ],
+
+    "clock": {
+        "format": " {:%H:%M}",
+        "tooltip-format": "{calendar}"
+    },
+    "cpu": {
+        "interval": 2,
+        "format": " {usage}%",
+        "tooltip": true
+    },
+    "memory": {
+        "interval": 5,
+        "format": " {percentage}%",
+        "tooltip": true
+    },
+    "disk": {
+        "interval": 30,
+        "format": " {percentage_used}%",
+        "path": "/",
+        "tooltip": true
+    },
+
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip": true,
+        "format-icons": {
+            "default": "",
+            "performance": "",
+            "balanced": "",
+            "power-saver": ""
+        }
+    },
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": ""
+    },
+
+    "wireplumber": {
+        "format": "{icon} {volume}%",
+        "format-muted": " Muted",
+        "format-icons": ["", ""],
+        "max-volume": 100,
+        "on-click": "pavucontrol",
+        "scroll-step": 5
+    },
+    "custom/nightlight": {
+        "exec": "if pgrep -x wlsunset > /dev/null; then echo '{\"text\": \"\", \"tooltip\": \"Night Light: ON (3500K)\"}'; else echo '{\"text\": \"\", \"tooltip\": \"Night Light: OFF\"}'; fi",
+        "return-type": "json",
+        "interval": "once",
+        "on-click": "if pgrep -x wlsunset > /dev/null; then killall wlsunset; else wlsunset -t 3500 -T 4000 & fi; sleep 0.1; pkill -RTMIN+8 waybar",
+        "signal": 8
+    },
+    "custom/themetoggle": {
+        "exec": "if [ -f ~/.cache/wal/light_mode ]; then echo '{\"text\": \"\", \"tooltip\": \"Current: Light Mode (Click to toggle)\"}'; else echo '{\"text\": \"\", \"tooltip\": \"Current: Dark Mode (Click to toggle)\"}'; fi",
+        "return-type": "json",
+        "interval": "once",
+        "on-click": "swaymsg exec ~/.config/waybar/scripts/theme-toggle.sh",
+        "signal": 9
+    },
+    "network": {
+        "format-wifi": " {essid}",
+        "format-ethernet": " Ethernet",
+        "format-disconnected": " Offline",
+        "tooltip-format": "{essid} ({signalStrength}%)",
+        "on-click": "nm-connection-editor"
+    },
+    "bluetooth": {
+        "format": " On",
+        "format-disabled": " Off",
+        "format-connected": " {num_connections}",
+        "tooltip-format": "{controller_alias}\n{num_connections} connected",
+        "on-click": "if bluetoothctl show | grep -q 'Powered: yes'; then bluetoothctl power off; else bluetoothctl power on; fi",
+        "on-click-right": "blueman-manager"
+    },
+    "battery": {
+        "interval": 10,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-icons": ["", "", "", "", ""]
+    }
+}

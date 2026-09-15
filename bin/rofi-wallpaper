@@ -1,0 +1,76 @@
+#!/bin/bash
+# Rofi-based Wallpaper Selector
+
+DIR="$HOME/Wallpapers"
+if [ ! -d "$DIR" ]; then
+    mkdir -p "$DIR"
+    echo "Please add some wallpapers to $DIR"
+    exit 1
+fi
+
+# Determine currently active wallpaper
+CURRENT_WP=$(grep -o '".*"' ~/.config/sway/current_wallpaper 2>/dev/null | tr -d '"')
+CURRENT_WP_BASENAME=$(basename "$CURRENT_WP" 2>/dev/null)
+
+# Build Rofi input and track active index
+ROFI_INPUT=""
+INDEX=0
+ACTIVE_INDEX=0
+
+for img in "$DIR"/*; do
+    [ -f "$img" ] || continue
+    BASE=$(basename "$img")
+    [ "$BASE" = "$CURRENT_WP_BASENAME" ] && ACTIVE_INDEX=$INDEX
+    ROFI_INPUT+="${BASE}\0icon\x1f${img}\n"
+    ((INDEX++))
+done
+
+[ "$INDEX" -eq 0 ] && { echo "No wallpapers found in $DIR"; exit 1; }
+
+# Launch Rofi gallery
+WP=$(echo -en "$ROFI_INPUT" | rofi -dmenu -theme ~/.config/rofi/wallpaper.rasi \
+    -show-icons -p "" -i -a "$ACTIVE_INDEX" -selected-row "$ACTIVE_INDEX")
+
+[ -z "$WP" ] && exit 0
+
+WP_PATH="$DIR/$WP"
+
+# Generate thumbnail for fast Pywal processing
+THUMB_DIR="$HOME/.cache/wal/thumbs"
+mkdir -p "$THUMB_DIR"
+THUMB_PATH="$THUMB_DIR/${WP}.jpg"
+[ -f "$THUMB_PATH" ] || convert "$WP_PATH" -resize 256x256^ -gravity center -extent 256x256 "$THUMB_PATH"
+
+# Block Pywal from setting wallpaper itself
+mkdir -p /tmp/wal_block
+for cmd in swaymsg swaybg swww feh display xwallpaper; do
+    ln -sf /usr/bin/true "/tmp/wal_block/$cmd"
+done
+
+# Run Pywal on thumbnail (preserves light/dark mode)
+if [ -f ~/.cache/wal/light_mode ]; then
+    PATH="/tmp/wal_block:$PATH" wal -q -n -i "$THUMB_PATH" -l
+else
+    PATH="/tmp/wal_block:$PATH" wal -q -n -i "$THUMB_PATH"
+fi
+
+# Save wallpaper path for Sway startup
+echo "set \$wallpaper \"$WP_PATH\"" > ~/.config/sway/current_wallpaper
+
+# Apply wallpaper + border colors instantly
+source ~/.cache/wal/colors.sh
+swaymsg "client.focused $color6 $color6 $background $color6 $color6; \
+client.focused_inactive $color2 $background $color7 $color2 $color2; \
+client.unfocused $color2 $background $color7 $color2 $color2; \
+client.urgent $color1 $color1 $foreground $color1 $color1; \
+output * bg '$WP_PATH' fill"
+
+# Reload Waybar CSS
+killall -SIGUSR2 waybar
+
+# Instantly reload Dunst synchronously before backgrounding
+dunstctl close-all 2>/dev/null || true
+dunstctl reload 2>/dev/null || true
+
+# Apply GTK/Papirus/wlogout in background
+bash ~/.config/sway/scripts/apply-theme.sh > /dev/null 2>&1 & disown

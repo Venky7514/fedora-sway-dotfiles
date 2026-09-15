@@ -1,0 +1,31 @@
+# User Sway configuration
+
+# ============================================================
+# Global Variables (Pywal Colors & Wallpaper)
+# Must be defined before Fedora layered-include processes config.d
+# ============================================================
+include ~/.cache/wal/colors-sway
+include ~/.config/sway/current_wallpaper
+
+# Uses Fedora's main Sway configuration as a base.
+# This automatically includes ~/.config/sway/config.d/*.conf via layered-include.
+include /etc/sway/config
+
+# ============================================================
+# Modular Configuration Includes
+# ============================================================
+# Fedora's default layered-include script is missing in F44, so we include these manually.
+include /etc/sway/config.d/*
+include ~/.config/sway/config.d/*
+
+# ============================================================
+# Global Settings & Appearance
+# ============================================================
+# Prevent default background from flashing underneath
+output * bg #000000 solid_color
+output * bg $wallpaper fill
+
+seat * xcursor_theme Bibata-Modern-Ice 24
+font pango:JetBrains Mono 10
+
+

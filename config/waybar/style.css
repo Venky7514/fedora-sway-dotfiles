@@ -1,0 +1,145 @@
+/* ============================================================
+   Waybar - Individual Floating Cards UI (Less Rounded / Sway Matched)
+   ============================================================ */
+
+@import "../../.cache/wal/colors-waybar.css";
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "SF Pro Text", "Font Awesome 6 Free", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    min-height: 0;
+}
+
+/* ============================================================
+   REMOVE ALL OUTER BAR BACKGROUNDS
+   This ensures the modules float directly on the wallpaper
+   ============================================================ */
+window#waybar {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.modules-left, .modules-center, .modules-right {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+/* ============================================================
+   INDIVIDUAL CARDS
+   Each module is its own floating rounded box
+   ============================================================ */
+#clock, #cpu, #memory, #disk,
+#power-profiles-daemon, #workspaces,
+#wireplumber, #custom-nightlight, #custom-themetoggle, #network, #bluetooth, #battery {
+    /* The Background and Shape of each card */
+    background-color: alpha(@background, 0.95);
+    border: 1px solid alpha(@foreground, 0.08);
+    
+    /* Less rounded edges to complement Sway */
+    border-radius: 4px;
+    
+    /* Dimensions & Spacing */
+    min-height: 34px; /* Taller card */
+    padding: 0 20px; /* Wider card for more breathing room */
+    margin: 4px; /* 8px horizontal gap between cards */
+    
+    color: @foreground;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    transition: all 0.2s ease;
+}
+
+/* Typographic tuning */
+#cpu, #memory, #disk {
+    color: alpha(@foreground, 0.75);
+}
+
+/* Subtle accent tints for status */
+#power-profiles-daemon {
+    color: alpha(@color3, 0.9);
+}
+
+#battery.charging, #battery.plugged {
+    color: alpha(@color2, 0.9);
+}
+#battery.warning:not(.charging) {
+    color: alpha(@color3, 0.9);
+}
+#battery.critical:not(.charging) {
+    color: alpha(@color1, 0.9);
+}
+
+/* Hover state for individual cards */
+#clock:hover, #cpu:hover, #memory:hover, #disk:hover,
+#power-profiles-daemon:hover,
+#wireplumber:hover, #custom-nightlight:hover, #custom-themetoggle:hover, #network:hover, #bluetooth:hover, #battery:hover {
+    background-color: alpha(@foreground, 0.08);
+    color: @foreground;
+}
+
+/* ============================================================
+   WORKSPACES (Card containing indicators)
+   ============================================================ */
+#workspaces {
+    padding: 0 8px; /* Tightly wrap indicators */
+}
+
+#workspaces button {
+    /* Hide text labels entirely */
+    font-size: 0px;
+    color: transparent;
+
+    /* Inactive indicator geometry */
+    min-width: 8px;
+    min-height: 8px;
+    padding: 0;
+    
+    /* Center the 8px dot inside the 34px card vertically (13+8+13 = 34) */
+    margin-top: 13px;
+    margin-bottom: 13px;
+    margin-left: 4px;
+    margin-right: 4px;
+    
+    /* Slightly rounded square to match the new sharper aesthetic */
+    border-radius: 3px; 
+    
+    background-color: alpha(@foreground, 0.2);
+    border: none;
+    box-shadow: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+#workspaces button:hover {
+    background-color: alpha(@foreground, 0.4);
+}
+
+#workspaces button.focused, #workspaces button.active {
+    /* Active elongated indicator */
+    min-width: 24px;
+    background-color: @color4; /* Strong dominant accent from wallpaper */
+    box-shadow: 0 0 6px alpha(@color4, 0.4);
+}
+
+/* Ensure no text ever renders */
+#workspaces button label {
+    font-size: 0px;
+    color: transparent;
+}
+
+/* ============================================================
+   TOOLTIPS
+   ============================================================ */
+tooltip {
+    background: alpha(@background, 0.95);
+    border: 1px solid alpha(@foreground, 0.1);
+    border-radius: 6px; /* Sharper tooltip corners */
+}
+tooltip label {
+    color: @foreground;
+    padding: 8px 12px;
+}

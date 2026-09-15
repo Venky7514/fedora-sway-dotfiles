@@ -1,0 +1,86 @@
+@import "~/.cache/wal/colors-rofi.rasi"
+
+configuration {
+    modi: "drun,run";
+    show-icons: true;
+    display-drun: "  Search";
+    display-run: "  Run";
+    drun-display-format: "{name}";
+    font: "JetBrains Mono 12";
+}
+
+window {
+    width: 45%;
+    background-color: @bg;
+    border: 2px solid;
+    border-color: @primary;
+    border-radius: 12px;
+    padding: 0px;
+}
+
+mainbox {
+    background-color: transparent;
+    spacing: 15px;
+    padding: 20px;
+}
+
+inputbar {
+    background-color: @bg-alt;
+    border-radius: 8px;
+    padding: 12px 15px;
+    spacing: 10px;
+    children: [ prompt, entry ];
+}
+
+prompt {
+    background-color: transparent;
+    text-color: @primary;
+    font: "JetBrains Mono Bold 12";
+}
+
+entry {
+    background-color: transparent;
+    text-color: @fg;
+    placeholder: "Type to search...";
+    placeholder-color: @fg;
+}
+
+listview {
+    background-color: transparent;
+    columns: 2;
+    lines: 8;
+    spacing: 8px;
+    cycle: true;
+    dynamic: true;
+    scrollbar: false;
+}
+
+element {
+    background-color: transparent;
+    text-color: @fg;
+    padding: 10px;
+    border-radius: 8px;
+    spacing: 12px;
+}
+
+element-icon {
+    background-color: transparent;
+    size: 24px;
+}
+
+element-text {
+    background-color: transparent;
+    text-color: inherit;
+    vertical-align: 0.5;
+}
+
+element normal.normal,
+element alternate.normal {
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element selected.normal {
+    background-color: @primary;
+    text-color: @bg;
+}
